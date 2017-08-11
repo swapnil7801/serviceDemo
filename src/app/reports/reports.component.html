@@ -1,0 +1,19 @@
+<h1>Report Section</h1>
+<hr>
+<div class="container">
+  <div class="row">
+      <ul class="nav navbar-nav">
+        <li><a [routerLink]="['productReport']">ProductInSubsystem </a></li>
+        <li><a [routerLink]="['subsystemInProduct']">SubsystemInProduct </a></li>
+        <li><a [routerLink]="['productwithdriver']">Product with Drivers </a></li>
+        <li><a [routerLink]="['driverInProduct']">Drivers in Product</a></li>
+        <!--<li><a [routerLink]="['/logout']">Logout</a></li>-->
+      </ul>
+       <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> <app-logout></app-logout></a></li>
+      </ul>
+  </div>
+  <div class="row"><router-outlet>  </router-outlet></div>    
+</div>
+
+      

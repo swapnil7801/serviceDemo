@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-6 pull-left">
+            <agm-map>
+                <map-directions [origin]="origin" [destination]="destination"></map-directions>
+            </agm-map>
+        </div>
+        <div class="col-md-6 pull-right">
+            <form class="form-horizontal"[formGroup]="bookingForm" (ngSubmit)="onSubmit()" >
+                <!-- Form Name -->
+                <legend>Get Booking</legend>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="trip_name">Trip Name</label>
+                    <div class="col-md-4">
+                        <input id="trip_name" formControlName="tripName" name="trip_name" type="text" placeholder="Enter Trip Name" class="form-control input-md">
+                        <!--<p class="help-block" >Please Enter Product Name</p>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="date_from">Date From</label>
+                    <div class="col-md-4">
+                        <input id="date_from" formControlName="dateFrom" name="date_from" type="text" placeholder="" class="form-control input-md">
+                        <!--<p class="help-block" >Please Enter Product Name</p>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="trip_name">Date To</label>
+                    <div class="col-md-4">
+                        <input id="trip_name" formControlName="dateTo" name="date_to" type="text" placeholder="" class="form-control input-md">
+                        <!--<p class="help-block" >Please Enter Product Name</p>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="origin_city">Origin</label>
+                    <div class="col-md-4">
+                        <input id="origin_city" formControlName="originCity" #search1 name="origin_city" type="text" placeholder="Enter Origin City" class="form-control input-md">
+                        <!--<p class="help-block" >Please Enter Product Name</p>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="destination_city">Destination City</label>
+                    <div class="col-md-4">
+                        <input id="destination_city" formControlName="destinationCity" name="destination_city" type="text" placeholder="Enter destination City"
+                            class="form-control input-md">
+                        <!--<p class="help-block" >Please Enter Product Name</p>-->
+                    </div>
+                </div>
+                  <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="save"></label>
+                    <div class="col-md-4">
+                    <input type="submit" class="btn btn-success" value="Finalize"  />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

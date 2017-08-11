@@ -1,0 +1,161 @@
+<form class="form-horizontal" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+  <fieldset>
+
+    <!-- Form Name -->
+    <legend>Create Product</legend>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="productType">Product Type</label>
+      <div class="col-md-4">
+        <select formControlName="productType" id="productType" name="productType" class="form-control">
+       <option value="Luminaire" selected>Luminaire</option>
+    </select>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="product_name">Product Name</label>
+      <div class="col-md-4">
+        <input id="product_name" formControlName="productName" name="product_name" type="text" placeholder="" class="form-control input-md">
+         <!--<p class="help-block">{{productForm.controls.productName.errors?.isValid}}</p>-->
+         <p class="help-block" *ngIf="productForm.controls.productName.errors?.required">Please Enter Product Name</p>
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label " for="ipc" >IP Council</label>
+      <div class="col-md-4">
+        <select id="ipc" name="ipc" class="form-control" formControlName="ipc">
+       <option *ngFor="let ipc of ipcList" [value]="ipc.Id">{{ipc.Lname}}</option>
+    </select>
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="barcode">Bar Code</label>
+      <div class="col-md-4">
+        <input id="barcode" name="barcode" type="text" placeholder="" class="form-control input-md" required="" formControlName="barCode">
+
+      </div>
+    </div>
+
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="order_code">Order Code</label>
+      <div class="col-md-4">
+        <input id="order_code" name="order_code" type="text" placeholder="" class="form-control input-md" required="" formControlName="orderCode">
+
+      </div>
+    </div>
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="product_brand">Product Brand</label>
+      <div class="col-md-4">
+        <select id="product_brand" name="product_brand" class="form-control" formControlName="product_brand">
+      <option *ngFor="let prodBr of productBrandList" [value]="prodBr.Id">{{prodBr.LName}}</option>
+    </select>
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="licensee">Licensee</label>
+      <div class="col-md-4">
+        <select id="licensee" name="licensee" class="form-control" formControlName="licensee">
+      <option *ngFor="let licensee of LicenseeList" [value]="licensee.Id">{{licensee.Company}}</option>
+    </select>
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="dimmable">Dimmable</label>
+      <div class="col-md-4">
+        <select id="dimmable" name="dimmable" class="form-control" formControlName="dimmable">
+      <option *ngFor="let dim of dimmableList" [value]="dim.Id">{{dim.LName}}</option>
+    </select>
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="manufacturer">Manufacturer</label>
+      <div class="col-md-4">
+        <select id="manufacturer" name="manufacturer" class="form-control" formControlName="manufacturer">
+      <option *ngFor="let manf of manufacturerList" [value]="manf.Id">{{manf.Company}}</option>
+    </select>
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="appArea">Application Area</label>
+      <div class="col-md-4">
+        <select id="appArea" name="appArea" class="form-control" formControlName="appArea">
+     <option *ngFor="let apparea of appAreaList" [value]="apparea.Id">{{apparea.LName}}</option>
+    </select>
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="man_country">Man. Country</label>
+      <div class="col-md-4">
+        <select id="man_country" name="man_country" class="form-control" formControlName="man_country">
+     <option *ngFor="let country of manCountryList" [value]="country.Id">{{country.LName}}</option>
+    </select>
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="light_cat">Light Category</label>
+      <div class="col-md-4">
+        <select id="light_cat" name="light_cat" class="form-control" formControlName="light_cat">
+         <option *ngFor="let lcat of lightCatList" [value]="lcat.Id">{{lcat.LName}}</option>
+
+    </select>
+      </div>
+    </div>
+
+
+
+    <!-- Textarea -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="notes">Notes</label>
+      <div class="col-md-4">
+        <textarea class="form-control" id="notes" name="notes" placeholder="Add a note." formControlName="notes"></textarea>
+      </div>
+    </div>
+    <!-- Text input-->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="coordinate">Coordinates</label>
+      <div class="col-md-4">
+        <input id="coordinate" name="coordinate" type="text" placeholder="coordinate" class="form-control input-md" formControlName="coordinate">
+        <span class="help-block"> </span>
+      </div>
+    </div>
+
+    <!-- Select Basic -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="storage_location">Storage Locations</label>
+      <div class="col-md-4">
+        <select id="storage_location" name="storage_location" class="form-control" formControlName="storage_location">
+          <option *ngFor="let storage of storageLocationList" [value]="storage.Id">{{storage.Company}}</option>
+    </select>
+      </div>
+    </div>
+
+  </fieldset>
+  <!-- Button -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="save"></label>
+    <div class="col-md-4">
+      <input type="submit" class="btn btn-success" value="Submit" [disabled]="!productForm.valid" />
+    </div>
+  </div>
+</form>

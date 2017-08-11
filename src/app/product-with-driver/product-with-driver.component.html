@@ -1,0 +1,31 @@
+<div class="container">     
+<h1> Products with Driver </h1> 
+<div class="row">   
+<table class="table table-striped">
+  <tr>
+    <th>Pin</th>
+    <th>ProductType</th> 
+    <th>ParSeq</th>
+    <th>ProductName</th>
+    <th>IpcName</th>
+    <th>DriverIC</th>
+    <th>DriverICName</th>
+  </tr>
+  <tr *ngFor="let resObject of asyncResult | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: p, totalItems: total }">
+    <td><span *ngIf="!resObject.Pin">N/A</span>{{ resObject.Pin }} </td>
+    <td><span *ngIf="!resObject.ProductType">N/A</span>{{ resObject.ProductType }}</td> 
+    <td><span *ngIf="!resObject.ParSeq">N/A</span>{{ resObject.ParSeq }}</td>
+    <td><span *ngIf="!resObject.ProductName">N/A</span>{{ resObject.ProductName }}</td>
+    <td><span *ngIf="!resObject.IpcName">N/A</span>{{ resObject.IpcName }}</td>
+    <td><span *ngIf="!resObject.driverIC">N/A</span>{{ resObject.driverIC }}</td>
+    <td><span *ngIf="!resObject.DriverICName">N/A</span>{{ resObject.DriverICName }}</td>
+  </tr>
+</table>
+</div>
+<div class="row">
+<div class="has-text-centered">
+    <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+    <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>
+</div>
+ </div>

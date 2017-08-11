@@ -1,0 +1,25 @@
+<div class="container">     
+<h1> Driver in Product </h1> 
+<div class="row">   
+<table class="table table-striped">
+  <tr>
+    <th>DriverIC</th>
+    <th>Type</th> 
+    <th>ParSeq</th>
+    <th>IPC</th>
+  </tr>
+  <tr *ngFor="let resObject of asyncResult | async | paginate: { id: 'server', itemsPerPage: 10, currentPage: p, totalItems: total }">
+    <td><span *ngIf="!resObject.driverIC">N/A</span>{{ resObject.driverIC }} </td>
+    <td><span *ngIf="!resObject.TYPE">N/A</span>{{ resObject.TYPE }}</td> 
+    <td><span *ngIf="!resObject.ParSeq">N/A</span>{{ resObject.ParSeq }}</td>
+    <td><span *ngIf="!resObject.IPC">N/A</span>{{ resObject.IPC }}</td>
+  </tr>
+</table>
+</div>
+<div class="row">
+<div class="has-text-centered">
+    <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+    <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+</div>
+</div>
+ </div>
