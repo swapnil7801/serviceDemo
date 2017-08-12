@@ -5,7 +5,6 @@
 
 # dependencies
 /node_modules
-/server/logs
 # IDEs and editors
 /.idea
 .project
