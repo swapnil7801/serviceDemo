@@ -1,6 +1,8 @@
 # ServiceDemo
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
+install CLI using -npm instal @angular/cli -g
+then use-> ng serve
 
 ## Development server
 
