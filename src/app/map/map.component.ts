@@ -11,118 +11,109 @@ declare var google: any;
 })
 export class MapComponent implements OnInit {
 	title: string = 'My first AGM project';
-	// lat: number = 51.678418;
-	// lng: number = 7.809007;
+	public latitude: number;
+	public longitude: number;
 	bookingForm: FormGroup;
-	
+	public zoom: number;
+	public formData: any;
 	@ViewChild("originSearch")
 	public originSearchRef: ElementRef;
 
-  @ViewChild("destinationSearch")
+	@ViewChild("destinationSearch")
 	public destinationSearchRef: ElementRef;
+
+	@ViewChild(DirectionsMapDirective) vc: DirectionsMapDirective;
 
 	constructor(private _router: Router, formBuilder: FormBuilder, private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {
 		this.bookingForm = formBuilder.group({
 			tripName: formBuilder.control(''),
 			dateFrom: formBuilder.control(''),
 			dateTo: formBuilder.control(''),
-			originCity: formBuilder.control(''),
-			destinationCity: formBuilder.control(''),
+			originSearch: formBuilder.control(''),
+			destinationSearch: formBuilder.control(''),
 		});
 
 	}
 	origin = { longitude: 8.815982, latitude: 51.673858 };  // its a example aleatory position
 	destination = { longitude: 7.815982, latitude: 51.673858 };  // its a example aleatory position
-	// markers: marker[] = [
-	// 	{
-	// 		lat: 51.673858,
-	// 		lng: 7.815982,
-	// 		label: 'A',
-	// 		draggable: true
-	// 	},
-	// 	{
-	// 		lat: 51.373858,
-	// 		lng: 7.215982,
-	// 		label: 'B',
-	// 		draggable: true
-	// 	}
-	// ]
+
 	ngOnInit() {
-	this.mapsAPILoader.load().then(() => {
-		//for Origin City
-      let autocomplete = new google.maps.places.Autocomplete(this.originSearchRef.nativeElement, {
-        types: ['address']
-      });
+		this.zoom = 4;
+		this.latitude = 39.8282;
+		this.longitude = -98.5795;
+		this.mapsAPILoader.load().then(() => {
+			//for Origin City
 
-      autocomplete.addListener('place_changed', () => {
+			let autocomplete = new google.maps.places.Autocomplete(this.originSearchRef.nativeElement, {
+				types: ['address']
+			});
 
-        this.ngZone.run(() => {
-          // get the place result
-          let selectedPlace = autocomplete.getPlace();
-					// console.log("selectedPlace- ",selectedPlace);
-					          //verify result
-          if (selectedPlace.geometry === undefined || selectedPlace.geometry === null) {
-            return;
-          }
+			autocomplete.addListener('place_changed', () => {
+
+				this.ngZone.run(() => {
+					// get the place result
+					let selectedPlace = autocomplete.getPlace();
+					// console.log("selectedPlace- ",selectedPlace.name);
+					//verify result
+					if (selectedPlace.geometry === undefined || selectedPlace.geometry === null) {
+						return;
+					}
 					//set latitude, longitude and zoom
-          this.origin.latitude = selectedPlace.geometry.location.lat();
-          this.origin.longitude = selectedPlace.geometry.location.lng();
-					console.log("selectedPlace1- ",selectedPlace.geometry.location.lat());
-					console.log("selectedPlace10- ",selectedPlace.geometry.location.lng());
-					
-          // this.zoom = 12;
-					
-         // place.formatted_address => is in english, because I didn't setup it.
-         // Need to have opportunity for localization of formatted_address
-        });
-      });
+					this.origin.latitude = selectedPlace.geometry.location.lat();
+					this.origin.longitude = selectedPlace.geometry.location.lng();
+					// console.log("originSearchRef lat- ",this.origin.latitude);
+					// console.log("originSearchRef lng- ", this.origin.longitude);
+					this.vc.origin = this.origin;
+					this.vc.originPlaceId = selectedPlace.place_id;
+					if (this.vc.directionsDisplay === undefined) {
+						this.mapsAPILoader.load().then(() => {
+							this.vc.directionsDisplay = new google.maps.DirectionsRenderer;
+						});
+					}
+					this.bookingForm.patchValue({originSearch: selectedPlace.name})
+					this.vc.updateDirections();
+					this.zoom = 12;
+				});
+			});
 
- 			//////for desitnation City
-      let autocomplete_destination = new google.maps.places.Autocomplete(this.destinationSearchRef.nativeElement, {
-        types: ['address']
-      });
+			//////for desitnation City
+			let autocomplete_destination = new google.maps.places.Autocomplete(this.destinationSearchRef.nativeElement, {
+				types: ['address']
+			});
 
-      autocomplete_destination.addListener('place_changed', () => {
+			autocomplete_destination.addListener('place_changed', () => {
 
-        this.ngZone.run(() => {
-          // get the place result
-          let destination_selectedPlace = autocomplete_destination.getPlace();
+				this.ngZone.run(() => {
+					this.vc.destinationPlaceId;
+					this.vc.destination;
+					// get the place result
+					let destination_selectedPlace = autocomplete_destination.getPlace();
 					// console.log("selectedPlace- ",selectedPlace);
-										//set latitude, longitude and zoom
-          this.destination.latitude = destination_selectedPlace.geometry.location.lat();
-          this.destination.longitude = destination_selectedPlace.geometry.location.lng();
-         // place.formatted_address => is in english, because I didn't setup it.
-         // Need to have opportunity for localization of formatted_address
-        });
-      });
-    });
-
-	}
-	ngAfterViewInit() {
-
+					//set latitude, longitude and zoom
+					this.destination.latitude = destination_selectedPlace.geometry.location.lat();
+					this.destination.longitude = destination_selectedPlace.geometry.location.lng();
+					// console.log("originSearchRef lat des- ", this.destination.latitude);
+					// console.log("originSearchRef lng des- ", this.destination.longitude);
+					this.vc.destination = this.destination;
+					this.vc.destinationPlaceId = destination_selectedPlace.place_id;
+					this.bookingForm.patchValue({destinationSearch: destination_selectedPlace.name})
+					this.vc.updateDirections();
+					if (this.vc.directionsDisplay === undefined) {
+						this.mapsAPILoader.load().then(() => {
+							this.vc.directionsDisplay = new google.maps.DirectionsRenderer;
+						});
+					}
+					this.zoom = 12;
+					// place.formatted_address => is in english, because I didn't setup it.
+					// Need to have opportunity for localization of formatted_address
+				});
+			});
+		});
 	}
 	onSubmit() {
-		console.log(this.bookingForm.value);
-		/*    this._prodService.addProduct(this.productForm.value).subscribe(res => {
-			  console.log(res);
-			  if(res.status==1){
-				alert('Product Inserted successfully Pin no.'+res.data.pin);
-				 this._router.navigate(['report']);
-			  }else{
-				alert('something went wrong..');
-			  }
-		
-			}, err => {
-			  console.log(err);
-			});*/
+		// console.log(this.bookingForm.value);
+		// console.log();
+
+		this.formData = this.bookingForm.value;
 	}
-
-
-}
-// just an interface for type safety.
-interface marker {
-	lat: number;
-	lng: number;
-	label?: string;
-	draggable: boolean;
 }

@@ -23,6 +23,9 @@ import { FileUploader } from 'ng2-file-upload';
 import { FileDropDirective, FileSelectDirective } from 'ng2-file-upload';
 import { MapComponent } from './map/map.component';
 import { DirectionsMapDirective } from './directions-map-directive.directive';
+import {DatePickerModule} from 'angular-io-datepicker';
+import {OverlayModule} from 'angular-io-overlay';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +54,9 @@ import { DirectionsMapDirective } from './directions-map-directive.directive';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAZPC8J5Kb7okrddLAfdShz5TID4JjuHqk',
       libraries: ["places"]
-    })
+    }),
+    OverlayModule,
+    DatePickerModule
   ],
   providers: [ReportServiceService,ProductService],
   bootstrap: [AppComponent]

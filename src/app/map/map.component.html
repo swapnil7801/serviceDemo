@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="col-md-6 pull-left">
-            <agm-map>
+            <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" >
                 <map-directions [origin]="origin" [destination]="destination"></map-directions>
             </agm-map>
         </div>
@@ -18,30 +18,30 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="date_from">Date From</label>
+                    <label class="col-md-4 control-label" for="date_from">Date start</label>
                     <div class="col-md-4">
-                        <input id="date_from" formControlName="dateFrom" name="date_from" type="text" placeholder="" class="form-control input-md">
+                        <date-picker formControlName="dateFrom" format="L" ></date-picker>
                         <!--<p class="help-block" >Please Enter Product Name</p>-->
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="trip_name">Date To</label>
+                    <label class="col-md-4 control-label" for="trip_name" >Date End</label>
                     <div class="col-md-4">
-                        <input id="trip_name" formControlName="dateTo" name="date_to" type="text" placeholder="" class="form-control input-md">
+                        <date-picker formControlName="dateTo" format="L" ></date-picker>
                         <!--<p class="help-block" >Please Enter Product Name</p>-->
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="origin_city">Origin</label>
                     <div class="col-md-4">
-                        <input id="origin_city" formControlName="originCity" #originSearch name="origin_city" type="text" placeholder="Enter Origin City" class="form-control input-md">
+                        <input id="origin_city" formControlName="originSearch" #originSearch name="origin_city" type="text" placeholder="Enter Origin City" class="form-control input-md">
                         <!--<p class="help-block" >Please Enter Product Name</p>-->
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="destination_city">Destination City</label>
                     <div class="col-md-4">
-                        <input id="destination_city" formControlName="destinationCity" #destinationSearch name="destination_city" type="text" placeholder="Enter destination City"
+                        <input id="destination_city" formControlName="destinationSearch" #destinationSearch name="destination_city" type="text" placeholder="Enter destination City"
                             class="form-control input-md">
                         <!--<p class="help-block" >Please Enter Product Name</p>-->
                     </div>
@@ -55,5 +55,10 @@
                 </div>
             </form>
         </div>
+    </div>
+    <br>
+    <br>
+    <div id="json_res">
+        {{formData | json}}
     </div>
 </div>
