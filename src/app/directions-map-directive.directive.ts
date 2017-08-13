@@ -10,6 +10,12 @@ declare var google: any;
 export class DirectionsMapDirective {
   @Input() origin;
   @Input() destination;
+  @Input() originPlaceId:any;
+  @Input() destinationPlaceId:any;
+  @Input() waypoints:any;
+  @Input() directionsDisplay:any;
+  @Input() estimatedTime : any;
+  @Input() estimatedDistance : any;
   constructor (private gmapsApi: GoogleMapsAPIWrapper) {}
   ngOnInit(){
     this.gmapsApi.getNativeMap().then(map => {
